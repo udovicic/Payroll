@@ -1,0 +1,19 @@
+.shift {
+	margin: 120px auto;
+	max-width: 600px;
+	padding: 30px 30px 10px;
+
+}
+
+@media (max-width: 768px) {
+	.shift {
+		margin: 15px auto 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
+
+	.shift input {
+		margin-bottom: 5px;
+	}
+}

@@ -1,0 +1,69 @@
+html{
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+	background: #6596a1;
+	min-height: 100%;
+}
+
+a {
+	color: white;
+}
+
+
+.shift-list-panel {
+	margin: 50px auto;
+	max-width: 600px;
+	border-color: #3d5054;
+}
+.panel.shift-list-panel .panel-heading{
+	background: #3d5054;
+	border-color: #3d5054;
+	color: #ffffff;
+
+}
+
+.modal-body {
+	padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+	.modal-body input {
+		margin-bottom: 5px;
+	}
+}
+/* report buttons */
+span.edit {
+	background: url('../img/ic_edit.png') no-repeat;
+}
+span.delete {
+	background: url('../img/ic_cancel.png') no-repeat;
+}
+span.edit, span.delete {
+	display: block;
+	width: 16px;
+	height: 16px;
+	background-size: 16px 16px;
+}
+
+/* detalji smjene */
+table.shift-list tr.details {
+	display: none;
+}
+table.shift-list tbody td, table.shift-list tfoot td {
+	border: none;
+}
+table.shift-list td ul {
+	padding: 0 30px;
+	text-align: justify;
+	list-style: none;
+}
+table.shift-list td ul span.title {
+	font-weight: bold;
+}
+table.shift-list td ul span.value {
+	font-style: italic;
+}

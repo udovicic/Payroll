@@ -1,0 +1,75 @@
+.user-form {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.profile {
+    max-width: 500px;
+    padding: 15px;
+    margin: 100px auto;
+}
+
+
+@media (max-width: 768px) {
+    .profile {
+        margin: 15px auto 0;
+        padding: 0;
+    }
+}
+
+.user-form .user-form-heading, .user-form .checkbox {
+    margin-bottom: 10px;
+}
+.user-form .checkbox {
+    font-weight: normal;
+}
+.user-form .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.user-form .form-control:focus {
+    z-index: 2;
+}
+.user-form input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.user-form input[type="email"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.user-form.pwd-reset input[type="email"] {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.user-form input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall {
+    padding: 10px 0px 10px 0px;
+}
+.bottom-text {
+    display: block;
+}
+.reset {
+    display: block;
+    margin: 10px 0;
+    text-align: right;
+}
+.alert {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
