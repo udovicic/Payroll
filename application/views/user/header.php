@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/main.css">
-        <link rel="stylesheet" href="<?php echo base_url() ?>css/login.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>css/user.css">
 
         <script src="<?php echo base_url() ?>js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>

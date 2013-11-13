@@ -9,8 +9,8 @@ class User_model extends CI_Model
 	/**
 	* Check user data in database
 	*
-	* @param array $user_data Array containing 'username' and hashed 'password'.
-	* @return mixed Array containing sser data on success, otherwise false.
+	* @param array $user_data Array containing identifying record from database.
+	* @return mixed Array containing user data on success, otherwise false.
 	*/
     function check_credentials($user_data)
     {
@@ -81,6 +81,40 @@ class User_model extends CI_Model
 
         if ($this->db->affected_rows() == 1) {
             return $pwd;
+        }
+
+        return false;
+    }
+
+    /**
+    * Retreive available rates from databse
+    *
+    * @return array Key-value(rate_id => rate_name)
+    */
+    function get_rate_list()
+    {
+        $this->db->select('rate_id, name');
+        $query = $this->db->get('rates');
+
+        return $query->result_array();
+    }
+
+    /**
+    * Update profile with new info
+    *
+    * @param int $user_id User id
+    * @param array $user_info Info to be updated
+    * @return mixed User info on success, otherwise false
+    */
+    function update_profile($user_id, $user_data)
+    {
+        $user_id = array('user_id' => $user_id);
+
+        $this->db->where($user_id);
+        $this->db->update('users', $user_data);
+
+        if ($this->db->affected_rows() == 1) {
+            return $this->check_credentials($user_id);
         }
 
         return false;

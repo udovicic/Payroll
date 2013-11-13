@@ -6,6 +6,15 @@
 */
 class User extends CI_Controller
 {
+
+    /**
+    * User controller constructor
+    */
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+    }
     /**
     * Login attempt
     *
@@ -16,9 +25,8 @@ class User extends CI_Controller
     {
         // check user input
         if ($this->input->post() != false) {
-            $this->load->model('User_model');
 
-            $user_data = array(
+            $user_info = array(
                 'username' => $this->input->post('username'),
                 'password' => sha1($this->input->post('password'))
             );
@@ -42,7 +50,7 @@ class User extends CI_Controller
                 $data['notify'] = validation_errors();
             } else {
                 // check database entry
-                $user_info = $this->User_model->check_credentials($user_data);
+                $user_info = $this->User_model->check_credentials($user_info);
                 if ($user_info == false) {
                 	$data['notify'] = 'Wrong username or password';
                 }
@@ -50,7 +58,7 @@ class User extends CI_Controller
 
             // perform login action
             if (isset($data['notify']) == false) {
-                $this->session->set_userdata($user_info['username']);
+                $this->session->set_userdata($user_info);
                 redirect(site_url()); // redirect do default controller/action
             }
         }
@@ -82,7 +90,6 @@ class User extends CI_Controller
     function register()
     {
     	if ($this->input->post() != false) {
-    		$this->load->model('User_model');
 
     		$user_info = array(
     		    'username' => $this->input->post('username'),
@@ -159,7 +166,6 @@ class User extends CI_Controller
     		'username' => $username
     	);
 
-    	$this->load->model('User_model');
     	$this->User_model->activate($user_info);
     	redirect(site_url('/user/login'));
     }
@@ -173,9 +179,8 @@ class User extends CI_Controller
     function reset()
     {
         if ($this->input->post() != false) {
-            $this->load->model('User_model');
 
-            $user_data = array(
+            $user_info = array(
                 'email' => $this->input->post('email')
             );
 
@@ -194,7 +199,7 @@ class User extends CI_Controller
                 $data['notify'] = validation_errors();
             } else {
                 // execute password reset
-                $pwd = $this->User_model->reset_pwd($user_data);
+                $pwd = $this->User_model->reset_pwd($user_info);
 
                 if ($pwd == false) {
                     // email not in database
@@ -208,7 +213,7 @@ class User extends CI_Controller
                     $this->load->library('email');
 
                     $this->email->from('system@payroll');
-                    $this->email->to($user_data['email']);
+                    $this->email->to($user_info['email']);
                     $this->email->subject('Password reset');
                     $this->email->message($msg);
                     $this->email->send();
@@ -221,5 +226,82 @@ class User extends CI_Controller
         $this->load->view('user/header', $data);
         $this->load->view('user/reset', $data);
         $this->load->view('user/footer');
+    }
+
+    /**
+    * User profile editor
+    *
+    * Edit user data
+    */
+    function profile()
+    {
+        // require user to be logged in
+        if ($this->session->userdata('username') == false) {
+            redirect('user/login');
+        }
+
+        // parse input
+        if ($this->input->post()) {
+            $user_info = array(
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'password' => $this->input->post('password'),
+                'rate_id_fk' => $this->input->post('rate')
+            );
+
+            // validate form input
+            $config = array(
+                array(
+                    'field' => 'username',
+                    'label' => 'Username',
+                    'rules' => 'trim|required|max_length[30]|min_length[3]'
+                ), array(
+                    'field' => 'email',
+                    'label' => 'Email',
+                    'rules' => 'trim|required|valid_email'
+                ), array(
+                    'field' => 'password',
+                    'label' => 'Password',
+                    'rules' => 'trim|min_length[4]'
+                ), array(
+                    'field' => 'rate',
+                    'label' => 'Rate',
+                    'rules' => 'required'
+                )
+            );
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules($config);
+
+            if ($this->form_validation->run() == false) {
+                $data['notify'] = validation_errors();
+            } else {
+                // remove password from array if not set 
+                if ($user_info['password'] == false) {
+                    unset($user_info['password']);
+                } else {
+                    $user_info['password'] = sha1($user_info['password']);
+                }
+
+                $user_id = $this->session->userdata('user_id');
+                $user_info = $this->User_model->update_profile($user_id, $user_info);
+
+                if ($user_info != false) {
+                    $this->session->set_userdata($user_info);
+                } else {
+                    $data['notify'] = 'Profile update failed';
+                }
+            }
+        }
+
+        // render view
+        $data['title'] = 'User profile';
+        $data['username'] = $this->session->userdata('username');
+        $data['email'] = $this->session->userdata('email');
+        $data['rate_id'] = $this->session->userdata('rate_id_fk');
+        $data['rates'] = $this->User_model->get_rate_list();
+
+        $this->load->view('shift/header', $data);
+        $this->load->view('user/profile', $data);
+        $this->load->view('shift/footer');
     }
 }

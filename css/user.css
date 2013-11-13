@@ -1,0 +1,59 @@
+.user-form {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.profile {
+    max-width: 500px;
+    padding: 15px;
+    margin: 100px auto;
+}
+
+
+@media (max-width: 768px) {
+    .profile {
+        margin: 15px auto 0;
+        padding: 0;
+    }
+}
+
+.user-form .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.user-form button {
+    margin-top: 10px;
+}
+
+.input-group .input-group-addon,
+.input-group .form-control {
+    border-radius: 0;
+}
+
+.input-group.first .input-group-addon {border-top-left-radius: 4px;}
+.input-group.first .form-control {border-top-right-radius: 4px;}
+.input-group.last .input-group-addon {border-bottom-left-radius: 4px;}
+.input-group.last .form-control {border-bottom-right-radius: 4px;}
+
+.account-wall {
+    padding: 10px 0px 10px 0px;
+}
+.bottom-text {
+    display: block;
+}
+.reset {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+}
+.alert {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
