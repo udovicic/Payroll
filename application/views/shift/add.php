@@ -51,12 +51,13 @@
                         <ul class="list-group">
 <?php
     $translate = array(
-        'day' => 'Dnevni',
-        'night' => 'Noćni',
-        'sunday' => 'Nedjeljni',
-        'sunday_night' => 'Nedjeljni noćni',
-        'holiday' => 'Praznik',
-        'holiday_night' => 'Praznik noćni'
+        'day' => 'Day',
+        'night' => 'Night',
+        'sunday' => 'Sunday',
+        'sunday_night' => 'Sunday night',
+        'holiday' => 'Holiday',
+        'holiday_night' => 'Holiday night',
+        'bonus' => 'Bonus'
     );
     foreach ($details as $key => $value):
         if ($value != 0):
