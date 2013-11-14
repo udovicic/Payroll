@@ -241,7 +241,7 @@ class User extends CI_Controller
         }
 
         // parse input
-        if ($this->input->post()) {
+        if ($this->input->post() != false) {
             $user_info = array(
                 'username' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
