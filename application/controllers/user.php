@@ -14,6 +14,8 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+
+        $this->lang->load('user', $this->session->userdata('language'));
     }
     /**
     * Login attempt
@@ -35,11 +37,11 @@ class User extends CI_Controller
             $config = array(
                 array(
                     'field' => 'username',
-                    'label' => 'Username',
+                    'label' => lang('ph_username'),
                     'rules' => 'trim|required|max_length[30]|min_length[3]'
                 ), array(
                     'field' => 'password',
-                    'label' => 'Password',
+                    'label' => lang('ph_pwd'),
                     'rules' => 'trim|required|min_length[4]'
                 )
             );
@@ -52,19 +54,22 @@ class User extends CI_Controller
                 // check database entry
                 $user_info = $this->User_model->check_credentials($user_info);
                 if ($user_info == false) {
-                	$data['notify'] = 'Wrong username or password';
+                    $data['notify'] = lang('err_user_pwd');;
                 }
             }
 
             // perform login action
             if (isset($data['notify']) == false) {
+                // load data to session
                 $this->session->set_userdata($user_info);
-                redirect(site_url()); // redirect do default controller/action
+
+                // redirect do default controller/action
+                redirect(site_url());
             }
         }
 
         // render view
-        $data['title'] = 'Login';
+        $data['title'] = lang('title_sign_in');
         $this->load->view('user/header', $data);
         $this->load->view('user/login', $data);
         $this->load->view('user/footer');
@@ -89,61 +94,59 @@ class User extends CI_Controller
     */
     function register()
     {
-    	if ($this->input->post() != false) {
+        if ($this->input->post() != false) {
 
-    		$user_info = array(
-    		    'username' => $this->input->post('username'),
-    		    'email' => $this->input->post('email'),
-    		    'password' => sha1($this->input->post('password'))
-    		);
+            $user_info = array(
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'password' => sha1($this->input->post('password'))
+            );
 
-    		// validate form input
-    		$config = array(
+            // validate form input
+            $config = array(
                 array(
                     'field' => 'username',
-                    'label' => 'Username',
+                    'label' => lang('ph_username'),
                     'rules' => 'trim|required|max_length[30]|min_length[3]|is_unique[users.username]'
                 ), array(
-                	'field' => 'email',
-                	'label' => 'Email',
-                	'rules' => 'trim|required|valid_email|is_unique[users.email]'
+                    'field' => 'email',
+                    'label' => lang('ph_email'),
+                    'rules' => 'trim|required|valid_email|is_unique[users.email]'
                 ), array(
                     'field' => 'password',
-                    'label' => 'Password',
+                    'label' => lang('ph_pwd'),
                     'rules' => 'trim|required|min_length[4]'
                 )
             );
             $this->load->library('form_validation');
-    		$this->form_validation->set_rules($config);
+            $this->form_validation->set_rules($config);
 
-    		if ($this->form_validation->run() == false) {
-    			$data['notify'] = validation_errors();
-    		} else {
-    			$code = $this->User_model->create($user_info);
-    			if ($code != false) {
-    				$data['notify'] = 'User account has been created. '
-    					. 'Check your email for activation code';
+            if ($this->form_validation->run() == false) {
+                $data['notify'] = validation_errors();
+            } else {
+                $code = $this->User_model->create($user_info);
+                if ($code != false) {
+                    $data['notify'] = lang('notify_user_created');
 
-    				// send email notification
-                    $msg = 'Activate your account by visiting this link: '
-                    		. site_url('/user/activate/'
-                    			. $code . '/'
-                    			. $user_info['username']);
+                    // send email notification
+                    $msg = sprintf(lang('email_activate_body'), 
+                            site_url('/user/activate/'
+                                . $code . '/' . $user_info['username']));
 
                     $this->load->library('email');
 
                     $this->email->from('system@payroll');
                     $this->email->to($user_info['email']);
-                    $this->email->subject('User activation');
+                    $this->email->subject(lang('email_activate_subject'));
                     $this->email->message($msg);
                     $this->email->send();
-    			} else {
-    				$data['notify'] = 'Something went wrong';
-    			}
-    		}
-    	}
+                } else {
+                    $data['notify'] = lang('err_unknown');
+                }
+            }
+        }
 
-        $data['title'] = 'Register new account';
+        $data['title'] = lang('title_register');
         $this->load->view('user/header', $data);
         $this->load->view('user/register');
         $this->load->view('user/footer');
@@ -157,17 +160,17 @@ class User extends CI_Controller
     */
     function activate($code = false, $username = false)
     {
-    	if ($code == false || $username == false) {
-    		redirect(site_url('/user/register'));
-    	}
+        if ($code == false || $username == false) {
+            redirect(site_url('/user/register'));
+        }
 
-    	$user_info = array(
-    		'code' => $code,
-    		'username' => $username
-    	);
+        $user_info = array(
+            'code' => $code,
+            'username' => $username
+        );
 
-    	$this->User_model->activate($user_info);
-    	redirect(site_url('/user/login'));
+        $this->User_model->activate($user_info);
+        redirect(site_url('/user/login'));
     }
 
     /**
@@ -188,7 +191,7 @@ class User extends CI_Controller
             $config = array(
                 array(
                     'field' => 'email',
-                    'label' => 'Email',
+                    'label' => lang('ph_email'),
                     'rules' => 'trim|required|valid_email'
                 )
             );
@@ -203,18 +206,18 @@ class User extends CI_Controller
 
                 if ($pwd == false) {
                     // email not in database
-                    $data['notify'] = 'Unknown email address';
+                    $data['notify'] = lang('err_unknown_email');
                 } else {
                     // send email notification
-                    $msg = 'Your new password is: '
-                    		. $pwd . '. You can login at '
-                    		. site_url('user/login');
+                    $msg = sprintf(lang('email_reset_body'),
+                            $pwd,
+                            site_url('user/login'));
 
                     $this->load->library('email');
 
                     $this->email->from('system@payroll');
                     $this->email->to($user_info['email']);
-                    $this->email->subject('Password reset');
+                    $this->email->subject(lang('email_reset_subject'));
                     $this->email->message($msg);
                     $this->email->send();
                 }
@@ -222,7 +225,7 @@ class User extends CI_Controller
         }
 
         // render view
-        $data['title'] = 'Password reset';
+        $data['title'] = lang('title_reset');
         $this->load->view('user/header', $data);
         $this->load->view('user/reset', $data);
         $this->load->view('user/footer');
@@ -240,12 +243,15 @@ class User extends CI_Controller
             redirect('user/login');
         }
 
+        $this->lang->load('shift', $this->session->userdata('language'));
+
         // parse input
         if ($this->input->post() != false) {
             $user_info = array(
                 'username' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
+                'language' => $this->input->post('language'),
                 'rate_id_fk' => $this->input->post('rate')
             );
 
@@ -253,19 +259,23 @@ class User extends CI_Controller
             $config = array(
                 array(
                     'field' => 'username',
-                    'label' => 'Username',
+                    'label' => lang('ph_username'),
                     'rules' => 'trim|required|max_length[30]|min_length[3]'
                 ), array(
                     'field' => 'email',
-                    'label' => 'Email',
+                    'label' => lang('ph_email'),
                     'rules' => 'trim|required|valid_email'
                 ), array(
                     'field' => 'password',
-                    'label' => 'Password',
+                    'label' => lang('ph_password'),
                     'rules' => 'trim|min_length[4]'
                 ), array(
+                    'field' => 'language',
+                    'label' => lang('ph_language'),
+                    'rules' => 'required'
+                ), array(
                     'field' => 'rate',
-                    'label' => 'Rate',
+                    'label' => lang('ph_rate'),
                     'rules' => 'required'
                 )
             );
@@ -286,15 +296,26 @@ class User extends CI_Controller
                 $user_info = $this->User_model->update_profile($user_id, $user_info);
 
                 if ($user_info != false) {
+                    // reload session data with new info
                     $this->session->set_userdata($user_info);
+                    
+                    // refresh to reload language files
+                    redirect('/user/profile');
                 } else {
-                    $data['notify'] = 'Profile update failed';
+                    $data['notify'] = lang('err_unknown');
                 }
             }
         }
 
+        // grab current language
+        if ($this->session->userdata('language') == 'croatian') {
+            $data['sel_lang'] = 'hr';
+        } else {
+            $data['sel_lang'] = 'en';
+        }
+
         // render view
-        $data['title'] = 'User profile';
+        $data['title'] = lang('title_profile');
         $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');
         $data['rate_id'] = $this->session->userdata('rate_id_fk');

@@ -15,6 +15,8 @@ class Shift extends CI_Controller
         if ($this->session->userdata('username') == false) {
             redirect('/user/login');
         }
+
+        $this->lang->load('shift', $this->session->userdata('language'));
     }
 
     /**

@@ -36,6 +36,7 @@ class User_model extends CI_Model
         // populate default user data
     	$user_data['active'] = 0;
     	$user_data['code'] = random_string('alnum', 10);
+        $user_data['language'] = $this->config->item('language');
 
         // grab id of first rate from database
         $this->db->order_by('rate_id', 'asc');

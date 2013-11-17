@@ -4,7 +4,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="text" class="form-control" id="date" name="date" placeholder="Datum" readonly>
+                            <input type="text" class="form-control" id="date" name="date" placeholder="<?php echo lang('ph_date'); ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -12,18 +12,18 @@
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-step-backward"></span></span>
-                            <input type="text" class="form-control" id="start" name="start" placeholder="Početak" readonly>
+                            <input type="text" class="form-control" id="start" name="start" placeholder="<?php echo lang('ph_start'); ?>" readonly>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
-                            <input type="text" class="form-control" id="end" name="end" placeholder="Kraj" readonly>
+                            <input type="text" class="form-control" id="end" name="end" placeholder="<?php echo lang('ph_end'); ?>" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-step-forward"></span></span>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
-                            <input type="text" class="form-control" id="bonus" name="bonus" placeholder="Bonus">
+                            <input type="text" class="form-control" id="bonus" name="bonus" placeholder="<?php echo lang('ph_bonus'); ?>">
                             <span class="input-group-addon">Kn</span>
                         </div>
                     </div>
@@ -32,13 +32,13 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-                            <input type="text" class="form-control" id="note" name="note" placeholder="Komentar">
+                            <input type="text" class="form-control" id="note" name="note" placeholder="<?php echo lang('ph_note'); ?>">
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-offset-7 col-sm-5">
-                        <button type="submit" class="btn btn-lg btn-primary btn-block">Spremi</button>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block"><?php echo lang('btn_add'); ?></button>
                     </div>
                 </div>
 <?php if (isset($notify)): ?>
@@ -46,31 +46,22 @@
 <?php endif; ?>
 <?php if (isset($details)): ?>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Details</div>
+                    <div class="panel-heading"><?php echo lang('lbl_details'); ?></div>
                     <div class="panel-body">
                         <ul class="list-group">
 <?php
-    $translate = array(
-        'day' => 'Day',
-        'night' => 'Night',
-        'sunday' => 'Sunday',
-        'sunday_night' => 'Sunday night',
-        'holiday' => 'Holiday',
-        'holiday_night' => 'Holiday night',
-        'bonus' => 'Bonus'
-    );
     foreach ($details as $key => $value):
         if ($value != 0):
 ?>
                             <li class="list-group-item">
                                 <span class="badge"><?php echo $value; ?></span>
-                                <?php echo $translate[$key]; ?>
+                                <?php echo lang($key); ?>
                             </li>
 <?php endif; endforeach; ?>
                         </ul>
-                        <p><strong><em>Total:</em> <span class="text-success"><?php echo $total ?> Kn</span></strong></p>
+                        <p><strong><em><?php echo lang('lbl_totoal'); ?>:</em> <span class="text-success"><?php echo $total ?> Kn</span></strong></p>
 <?php if ($note != false): ?>
-                        <p><strong><em>Note:</em> <span class="text-warning"><?php echo $note; ?></span></strong></p>
+                        <p><strong><em><?php echo lang('lbl_note'); ?>:</em> <span class="text-warning"><?php echo $note; ?></span></strong></p>
 <?php endif; ?>
                     </div>
                 </div>

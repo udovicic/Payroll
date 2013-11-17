@@ -32,16 +32,16 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li id="menu-add"><a href="<?php echo site_url('/shift/add'); ?>"><span class="glyphicon glyphicon-plus"></span> Unos</a></li>
-                        <li id="menu-report"><a href="<?php echo site_url('/shift/report'); ?>"><span class="glyphicon glyphicon-th-list"></span> Izvještaj</a></li>
-                        <li id="menu-pdf"><a href="<?php echo site_url('/shift/pdf'); ?>"><span class="glyphicon glyphicon-file"></span> Print</a></li>
+                        <li id="menu-add"><a href="<?php echo site_url('/shift/add'); ?>"><span class="glyphicon glyphicon-plus"></span> <?php echo lang('add'); ?></a></li>
+                        <li id="menu-report"><a href="<?php echo site_url('/shift/report'); ?>"><span class="glyphicon glyphicon-th-list"></span> <?php echo lang('report'); ?></a></li>
+                        <li id="menu-pdf"><a href="<?php echo site_url('/shift/pdf'); ?>"><span class="glyphicon glyphicon-file"></span> <?php echo lang('pdf'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $username ?> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo site_url('/user/profile'); ?>"><span class="glyphicon glyphicon-wrench"></span> Edit profile</a></li>
-                                <li><a href="<?php echo site_url('/user/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                                <li><a href="<?php echo site_url('/user/profile'); ?>"><span class="glyphicon glyphicon-wrench"></span> <?php echo lang('profile'); ?></a></li>
+                                <li><a href="<?php echo site_url('/user/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo lang('sign_out'); ?></a></li>
                             </ul>
                         </li>
                     </ul>
