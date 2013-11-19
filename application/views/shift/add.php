@@ -59,7 +59,7 @@
                             </li>
 <?php endif; endforeach; ?>
                         </ul>
-                        <p><strong><em><?php echo lang('lbl_totoal'); ?>:</em> <span class="text-success"><?php echo $total ?> Kn</span></strong></p>
+                        <p><strong><em><?php echo lang('lbl_total'); ?>:</em> <span class="text-success"><?php echo $total ?> Kn</span></strong></p>
 <?php if ($note != false): ?>
                         <p><strong><em><?php echo lang('lbl_note'); ?>:</em> <span class="text-warning"><?php echo $note; ?></span></strong></p>
 <?php endif; ?>

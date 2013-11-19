@@ -20,6 +20,7 @@ $lang['ph_note'] = "Note";
 $lang['btn_add'] = "Save";
 
 $lang['title_add'] = "Add new shift";
+$lang['title_report'] = "Shift report";
 
 // SHIFT LISTING
 $lang['day'] = "Day";
@@ -31,5 +32,13 @@ $lang['holiday_night'] = "Holiday night";
 $lang['bonus'] = "Bonus";
 
 $lang['lbl_details'] = "Details";
-$lang['lbl_totoal'] = "Total";
+$lang['lbl_total'] = "Total";
+$lang['lbl_time'] = "Time";
 $lang['lbl_note'] = "Note";
+
+$lang['dlg_btn_close'] = "Close";
+$lang['dlg_btn_save'] = "Save";
+$lang['dlg_btn_delete'] = "Delete";
+$lang['dlg_edit_title'] = "Edit shift";
+$lang['dlg_delete_title'] = "Delete shift";
+$lang['dlg_delete_msg'] = "Delete shift on ";

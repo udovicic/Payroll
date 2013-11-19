@@ -20,6 +20,7 @@ $lang['ph_note'] = "Zabilješka";
 $lang['btn_add'] = "Spremi";
 
 $lang['title_add'] = "Dodavanje smjene";
+$lang['title_report'] = "Sažetak smjena";
 
 // SHIFT LISTING
 $lang['day'] = "Dnevni";
@@ -31,5 +32,13 @@ $lang['holiday_night'] = "Praznik noćni";
 $lang['bonus'] = "Bonus";
 
 $lang['lbl_details'] = "Sažetak";
-$lang['lbl_totoal'] = "Ukupno";
+$lang['lbl_total'] = "Ukupno";
+$lang['lbl_time'] = "Vrijeme";
 $lang['lbl_note'] = "Zabilješka";
+
+$lang['dlg_btn_close'] = "Zatvori";
+$lang['dlg_btn_save'] = "Spremi";
+$lang['dlg_btn_delete'] = "Obriši";
+$lang['dlg_edit_title'] = "Uređivanje smjene";
+$lang['dlg_delete_title'] = "Brisanje smjene";
+$lang['dlg_delete_msg'] = "Obrisati smjenu na dan ";

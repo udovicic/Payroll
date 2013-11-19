@@ -134,10 +134,22 @@ class User extends CI_Controller
                                 . $code . '/' . $user_info['username']));
 
                     $this->load->library('email');
+                    $this->load->config('email');
 
-                    $this->email->from('system@payroll');
+                    // send activation code
+                    $this->email->from($this->config->item('admin_email'));
                     $this->email->to($user_info['email']);
                     $this->email->subject(lang('email_activate_subject'));
+                    $this->email->message($msg);
+                    $this->email->send();
+
+                    // send info to admin
+                    $msg = sprintf(lang('email_new_user_body'),
+                        $user_info['username'], site_url());
+                    $this->email->clear();
+                    $this->email->from($this->config->item('admin_email'));
+                    $this->email->to($this->config->item('admin_email'));
+                    $this->email->subject(lang('email_new_user_subject'));
                     $this->email->message($msg);
                     $this->email->send();
                 } else {
@@ -214,8 +226,9 @@ class User extends CI_Controller
                             site_url('user/login'));
 
                     $this->load->library('email');
+                    $this->load->config('email');  
 
-                    $this->email->from('system@payroll');
+                    $this->email->from($this->config->item('admin_email'));
                     $this->email->to($user_info['email']);
                     $this->email->subject(lang('email_reset_subject'));
                     $this->email->message($msg);
@@ -324,5 +337,13 @@ class User extends CI_Controller
         $this->load->view('shift/header', $data);
         $this->load->view('user/profile', $data);
         $this->load->view('shift/footer');
+    }
+
+    /**
+    * Delete user account
+    */
+    function delete()
+    {
+        // TODO: Write this function
     }
 }

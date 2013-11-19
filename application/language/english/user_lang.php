@@ -28,6 +28,7 @@ $lang['email_activate_body'] = "Activate your account by visiting this link:\n\n
 $lang['email_activate_subject'] = "User activation";
 $lang['email_reset_body'] = "Your new password is:\n%s\n\nYou can sign in at\n%s";
 $lang['email_reset_subject'] = "Password reset";
+$lang['email_new_user'] = "User %s created account on %s";
 
 $lang['title_sign_in'] = "Sign in";
 $lang['title_register'] = "Register new account";

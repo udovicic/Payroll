@@ -1,12 +1,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-
 DROP TABLE IF EXISTS `rates`;
 CREATE TABLE `rates` (
   `rate_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -23,7 +17,7 @@ CREATE TABLE `rates` (
 DROP TABLE IF EXISTS `shifts`;
 CREATE TABLE `shifts` (
   `shift_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id_fk` int(11) unsigned NOT NULL,
   `date` date NOT NULL,
   `start` varchar(5) COLLATE utf8_slovenian_ci NOT NULL DEFAULT '0',
   `end` varchar(5) COLLATE utf8_slovenian_ci NOT NULL DEFAULT '0',
@@ -37,7 +31,7 @@ CREATE TABLE `shifts` (
   `holiday` smallint(2) NOT NULL DEFAULT '0',
   `holiday_night` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`shift_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id_fk` (`user_id_fk`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 DROP TABLE IF EXISTS `users`;
@@ -59,7 +53,7 @@ CREATE TABLE `users` (
 
 
 ALTER TABLE `shifts`
-  ADD CONSTRAINT `shifts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `shifts_ibfk_1` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`);
 
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`rate_id_fk`) REFERENCES `rates` (`rate_id`);

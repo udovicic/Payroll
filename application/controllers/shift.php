@@ -22,7 +22,9 @@ class Shift extends CI_Controller
     /**
     * Add shift action
     *
-    * Adds new shift. Requires 'date', 'start', 'end' and 'note' in $_POST
+    * Add or update shift.
+    * Requires 'start' and 'end' or 'bonus' and 'date', 'note' in $_POST
+    * If 'shift_id' is set in $_POST it preforms db update
     */
     function add()
     {
@@ -30,12 +32,16 @@ class Shift extends CI_Controller
 
             // grab user input
             $shift_info = array(
+                'shift_id' => $this->input->post('shift_id'),
                 'date' => $this->input->post('date'),
                 'start' => $this->input->post('start'),
                 'end' => $this->input->post('end'),
                 'bonus' => $this->input->post('bonus'),
                 'note' => $this->input->post('note')
             );
+            if ($shift_info['shift_id'] == false) {
+                unset($shift_info['shift_id']);
+            }
 
             // validate input
             if ($shift_info['date'] == false) {
@@ -54,7 +60,7 @@ class Shift extends CI_Controller
             // save shift info
             if (isset($data['notify']) == false) {
                 $this->load->model('Shift_model');
-                $shift_info['user_id'] = $this->session->userdata('user_id');
+                $shift_info['user_id_fk'] = $this->session->userdata('user_id');
 
                 // bonus only
                 if ($using_bonus == true) {
@@ -89,6 +95,12 @@ class Shift extends CI_Controller
                 }
             }
 
+            if (isset($shift_info['shift_id']) == true) {
+                $url = $_SERVER['HTTP_REFERER']; // Ugly
+                $url = str_replace($this->config->item('base_url'), '', $url);
+                redirect($url);
+            }
+
         }
 
         $data['title'] = 'Add shift';
@@ -106,11 +118,55 @@ class Shift extends CI_Controller
     */
     function report($start = false, $end = false)
     {
+        // parse input
+        if ($start == false && $end == false) {
+            $start = new DateTime('first day of this month');
+            $end = new DateTime('first day of next month');
+            $end->modify('-1 day');
+        } else if ($start != false && $end == false) {
+            $end = new Datetime;
+            $start = new DateTime('1.' . $start . '.' . $end->format('Y'));
+            $end = clone $start;
+            $end->modify('+1 month -1 day');
+        } else {
+            $start = new DateTime($start);
+            $end = new DateTime($end);
+        }
+
+        // create report
+        $this->load->model('Shift_model');
+        $report = $this->Shift_model->generate_report(
+            $start->format('Y-m-d'), $end->format('Y-m-d'),
+            $this->session->userdata('user_id'));
+
         // render view
-        $data['title'] = 'Report';
+        $data['title'] = lang('title_report');;
         $data['username'] = $this->session->userdata('username');
+        $data['report'] = $report;
         $this->load->view('shift/header', $data);
-        $this->load->view('shift/report');
+        $this->load->view('shift/report', $data);
         $this->load->view('shift/footer');
+    }
+
+    /**
+    * Delete shift
+    *
+    * Requires 'shift_id' in post
+    */
+    function delete()
+    {
+        if ($this->input->post() != false) {
+            $id = $this->input->post('shift_id');
+
+            if ($id != false) {
+                $this->load->model('Shift_model');
+                $this->Shift_model->delete($id);
+            }
+        }
+        echo $this->db->last_query();
+
+        $url = $_SERVER['HTTP_REFERER']; // Ugly
+        $url = str_replace($this->config->item('base_url'), '', $url);
+        redirect($url);
     }
 }

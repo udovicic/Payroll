@@ -28,6 +28,8 @@ $lang['email_activate_body'] = "Aktivirajte korisnički račun na sljedećoj adr
 $lang['email_activate_subject'] = "Aktivacija računa";
 $lang['email_reset_body'] = "Vaša nova lozinka je:\n%s\n\nMožete se prijaviti na\n%s";
 $lang['email_reset_subject'] = "Zaboravljena lozinka";
+$lang['email_new_user_subject'] = "Novi korisnički račun";
+$lang['email_new_user_body'] = "Korisnik %s se registrirao na %s";
 
 $lang['title_sign_in'] = "Prijava";
 $lang['title_register'] = "Stvaranje novog računa";

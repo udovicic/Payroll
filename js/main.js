@@ -35,20 +35,37 @@
 	$('td.edit').click(function() {
 		var date = $(this).siblings('td.date').html();
 		var time = $(this).siblings('td.time').html();
+		var bonus = $(this).siblings('td.bonus').html();
 		var id = $(this).parent().attr('id');
 		var comment = $(this).parent().next('tr.details').find('li.comment').children('.value').html();
+		var bonus = $(this).parent().next('tr.details').find('li.bonus').children('.value').html();
 
-		console.log(date);
 		time = time.split(' - ');
 		if (typeof comment == 'undefined') {
 			comment = '';
 		}
+		if (typeof bonus == 'undefined') {
+			bonus = '';
+		}
 		
-		$('#test')
+		$('#edit')
 			.find('#date').val(date).end()
 			.find('#start').val(time[0]).end()
 			.find('#end').val(time[1]).end()
+			.find('#bonus').val(bonus).end()
 			.find('#note').val(comment).end()
-			.data('id', id)
+			.find('#shift_id').val(id).end()
 			.modal('show');
 	})
+
+	$('td.delete').click(function() {
+		var id = $(this).parent().attr('id');
+		var date = $(this).siblings('td.date').html();
+		var total = $(this).siblings('td.total').html();
+
+		$('#delete')
+			.find('#shift_id').val(id).end()
+			.find('span.date').html(date).end()
+			.find('span.total').html(total).end()
+			.modal('show');
+	});

@@ -14,7 +14,14 @@ class Shift_model extends CI_Model
     */
     function save($info)
     {
-        $this->db->insert('shifts', $info);
+        if (isset($info['shift_id']) == true) {
+            $id = $info['shift_id'];
+            unset($info['shift_id']);
+            $this->db->where('shift_id', $id);
+            $this->db->update('shifts', $info);
+        } else {
+            $this->db->insert('shifts', $info);
+        }
 
         if ($this->db->affected_rows() == 1) {
             return true;
@@ -58,12 +65,12 @@ class Shift_model extends CI_Model
 
         // Reset shift details
         $shift_data = array(
-            "day" => 0,
-            "night" => 0,
-            "sunday" => 0,
-            "sunday_night" => 0,
-            "holiday" => 0,
-            "holiday_night" => 0
+            'day' => 0,
+            'night' => 0,
+            'sunday' => 0,
+            'sunday_night' => 0,
+            'holiday' => 0,
+            'holiday_night' => 0,
         );
 
         while ($shift < $shift_end) { // iterate through shift
@@ -111,7 +118,8 @@ class Shift_model extends CI_Model
     /**
      * Calculates total income
      *
-     * @param array Array returned by split()
+     * @param array $user_rate Array returned by get_rates()
+     * @param array $shift_data Array returned by split()
      * @return string Number formated to 2 decimal places
      */
     function calculate($user_rate, $shift_data)
@@ -124,5 +132,54 @@ class Shift_model extends CI_Model
         }
 
         return number_format($total, 2);
+    }
+
+    /**
+    * Generate report
+    *
+    * @param string $start Beginning date
+    * @param string $end Ending date
+    * @return array report in form of array
+    */
+    function generate_report($start, $end, $user_id)
+    {
+        // get shift details
+        $this->db->where("`date` BETWEEN '{$start}' AND '{$end}'");
+        $this->db->where('user_id_fk', $user_id);
+        $this->db->order_by('date', 'asc');
+        $query = $this->db->get('shifts');
+        $shifts = $query->result_array();
+
+        // get totals
+        $this->db->select_sum('total')->select_sum('bonus')
+            ->select_sum('day')->select_sum('night')
+            ->select_sum('sunday')->select_sum('sunday_night')
+            ->select_sum('holiday')->select_sum('holiday_night');
+        $this->db->where("`date` BETWEEN '{$start}' AND '{$end}'");
+        $this->db->where('user_id_fk', $user_id);
+        $query = $this->db->get('shifts');
+        $totals = $query->row_array();
+
+        $shifts['total'] = $totals;
+
+        return $shifts;
+    }
+
+    /**
+    * Delete shift from db
+    *
+    * @param int $id Shift ID number
+    * @return bool True on success, otherwise false
+    */
+    function delete($shift_id)
+    {
+        $this->db->where('shift_id', $shift_id);
+        $this->db->delete('shifts');
+
+        if ($this->db->affected_rows() == 1) {
+            return true;
+        }
+
+        return false;
     }
 }
