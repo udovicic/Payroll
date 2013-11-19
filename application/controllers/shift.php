@@ -105,9 +105,29 @@ class Shift extends CI_Controller
 
         $data['title'] = 'Add shift';
         $data['username'] = $this->session->userdata('username');
-        $this->load->view('shift/header', $data);
+        $this->load->view('header', $data);
         $this->load->view('shift/add', $data);
-        $this->load->view('shift/footer');
+        $this->load->view('footer');
+    }
+
+    /**
+    * Select period for report
+    */
+    function report_period($ajax = false)
+    {
+        // generate report
+        $this->input->post('month');
+        if ($this->input->post() != false) {
+            $month = $this->input->post('month');
+            redirect('/shift/report/' . $month);
+        }
+
+        // render view
+        $data['title'] = lang('title_report_period');
+        $data['username'] = $this->session->userdata('username');
+        if ($ajax == false) $this->load->view('header', $data);
+        $this->load->view('shift/period_select');
+        if ($ajax == false) $this->load->view('footer');
     }
 
     /**
@@ -143,9 +163,9 @@ class Shift extends CI_Controller
         $data['title'] = lang('title_report');;
         $data['username'] = $this->session->userdata('username');
         $data['report'] = $report;
-        $this->load->view('shift/header', $data);
+        $this->load->view('header', $data);
         $this->load->view('shift/report', $data);
-        $this->load->view('shift/footer');
+        $this->load->view('footer');
     }
 
     /**

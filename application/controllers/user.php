@@ -25,6 +25,11 @@ class User extends CI_Controller
     */
     function login()
     {
+        // redirect if allready logged in
+        if ($this->session->userdata('username') != false) {
+            redirect(site_url());
+        }
+
         // check user input
         if ($this->input->post() != false) {
 
@@ -94,6 +99,11 @@ class User extends CI_Controller
     */
     function register()
     {
+        // redirect if allready logged in
+        if ($this->session->userdata('username') != false) {
+            redirect(site_url());
+        }
+
         if ($this->input->post() != false) {
 
             $user_info = array(
@@ -172,6 +182,11 @@ class User extends CI_Controller
     */
     function activate($code = false, $username = false)
     {
+        // redirect if allready logged in
+        if ($this->session->userdata('username') != false) {
+            redirect(site_url());
+        }
+
         if ($code == false || $username == false) {
             redirect(site_url('/user/register'));
         }
@@ -193,6 +208,11 @@ class User extends CI_Controller
     */
     function reset()
     {
+        // redirect if allready logged in
+        if ($this->session->userdata('username') != false) {
+            redirect(site_url());
+        }
+        
         if ($this->input->post() != false) {
 
             $user_info = array(
@@ -334,9 +354,9 @@ class User extends CI_Controller
         $data['rate_id'] = $this->session->userdata('rate_id_fk');
         $data['rates'] = $this->User_model->get_rate_list();
 
-        $this->load->view('shift/header', $data);
+        $this->load->view('header', $data);
         $this->load->view('user/profile', $data);
-        $this->load->view('shift/footer');
+        $this->load->view('footer');
     }
 
     /**

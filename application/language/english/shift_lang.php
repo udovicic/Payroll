@@ -4,6 +4,8 @@
 * English translations used in Shift controller
 */
 
+$lang['shortcode'] = "en";
+
 // HEADER
 $lang['add'] = "Add shift";
 $lang['report'] = "View report";
@@ -12,15 +14,18 @@ $lang['profile'] = "Edit user profile";
 $lang['sign_out'] = "Sign out";
 
 $lang['ph_date'] = "Date";
+$lang['ph_month'] = "Month";
 $lang['ph_start'] = "Start";
 $lang['ph_end'] = "End";
 $lang['ph_bonus'] = "Bonus";
 $lang['ph_note'] = "Note";
 
 $lang['btn_add'] = "Save";
+$lang['btn_show'] = "Show";
 
 $lang['title_add'] = "Add new shift";
 $lang['title_report'] = "Shift report";
+$lang['title_report_period'] = "Select report period";
 
 // SHIFT LISTING
 $lang['day'] = "Day";

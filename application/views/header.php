@@ -11,8 +11,7 @@
 
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="<?php echo base_url() ?>css/jquery-ui.css">
-        <link rel="stylesheet" href="<?php echo base_url() ?>css/jquery-ui.timepicker.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>css/datetimepicker.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/main.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/shift.css">
 
@@ -33,7 +32,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li id="menu-add"><a href="<?php echo site_url('/shift/add'); ?>"><span class="glyphicon glyphicon-plus"></span> <?php echo lang('add'); ?></a></li>
-                        <li id="menu-report"><a href="<?php echo site_url('/shift/report'); ?>"><span class="glyphicon glyphicon-th-list"></span> <?php echo lang('report'); ?></a></li>
+                        <li id="menu-report"><a href="<?php echo site_url('/shift/report_period'); ?>"><span class="glyphicon glyphicon-th-list"></span> <?php echo lang('report'); ?></a></li>
                         <li id="menu-pdf"><a href="<?php echo site_url('/shift/pdf'); ?>"><span class="glyphicon glyphicon-file"></span> <?php echo lang('pdf'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

@@ -4,6 +4,8 @@
 * English translations used in Shift controller
 */
 
+$lang['shortcode'] = "hr";
+
 // HEADER
 $lang['add'] = "Dodaj";
 $lang['report'] = "Pregled";
@@ -12,15 +14,18 @@ $lang['profile'] = "Uredi profil";
 $lang['sign_out'] = "Odjava";
 
 $lang['ph_date'] = "Datum";
+$lang['ph_month'] = "Mjesec";
 $lang['ph_start'] = "Početak";
 $lang['ph_end'] = "Kraj";
 $lang['ph_bonus'] = "Bonus";
 $lang['ph_note'] = "Zabilješka";
 
 $lang['btn_add'] = "Spremi";
+$lang['btn_show'] = "Prikaži";
 
 $lang['title_add'] = "Dodavanje smjene";
 $lang['title_report'] = "Sažetak smjena";
+$lang['title_report_period'] = "Odaberite period izvješća";
 
 // SHIFT LISTING
 $lang['day'] = "Dnevni";

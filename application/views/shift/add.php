@@ -4,7 +4,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <input type="text" class="form-control" id="date" name="date" placeholder="<?php echo lang('ph_date'); ?>" readonly>
+                            <input type="text" class="form-control" lang="<?php echo lang('shortcode'); ?>" id="date" name="date" placeholder="<?php echo lang('ph_date'); ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -12,18 +12,18 @@
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-step-backward"></span></span>
-                            <input type="text" class="form-control" id="start" name="start" placeholder="<?php echo lang('ph_start'); ?>" readonly>
+                            <input type="text" class="form-control" lang="<?php echo lang('shortcode'); ?>" id="start" name="start" placeholder="<?php echo lang('ph_start'); ?>" readonly>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
-                            <input type="text" class="form-control" id="end" name="end" placeholder="<?php echo lang('ph_end'); ?>" readonly>
+                            <input type="text" class="form-control" lang="<?php echo lang('shortcode'); ?>" id="end" name="end" placeholder="<?php echo lang('ph_end'); ?>" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-step-forward"></span></span>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group multiple-form-row">
-                            <input type="text" class="form-control" id="bonus" name="bonus" placeholder="<?php echo lang('ph_bonus'); ?>">
+                            <input type="text" class="form-control" lang="<?php echo lang('shortcode'); ?>" id="bonus" name="bonus" placeholder="<?php echo lang('ph_bonus'); ?>">
                             <span class="input-group-addon">Kn</span>
                         </div>
                     </div>

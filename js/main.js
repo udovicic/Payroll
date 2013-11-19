@@ -1,25 +1,46 @@
+	// set current date
+	var d=new Date();
+	var day = d.getDate();
+	var month = d.getMonth() + 1;
+	var year = d.getFullYear();
+	$('#date').val(day + '.' + month + '.' + year);
+	$('#month').val(month);
 
-// set current date
-	var date = new Date();
-	$('#date').val($.datepicker.formatDate('dd.mm.yy', new Date()));
 
 	// datepicker setup
-	$('#date').datepicker({
-		dayNamesMin: [ "Ned", "Pon", "Uto", "Sri", "Čet", "Pet", "Sub" ],
-		monthNames: [ "Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac" ],
-		dateFormat: 'dd.mm.yy',
-		firstDay: 1
+	$('#date').datetimepicker({
+		autoclose: true,
+		format: 'dd.mm.yyyy',
+		todayHighlight: true,
+		minView: 2,
+		weekStart: 1,
+		language: $('#date').attr('lang')
+	});
+
+	// month picker setup
+	$('#month').datetimepicker({
+		autoclose: true,
+		format: 'mm',
+		startView: 3,
+		minView: 3,
+		language: $('#month').attr('lang')
 	});
 
 	// timepicker setup
-	$('#start').timepicker({
-		hourText: 'Početak smjene',
-		showMinutes: false
+	$('#start').datetimepicker({
+		autoclose: true,
+		format: 'hh',
+		startView: 1,
+		minView: 1,
+		language: $('#start').attr('lang')
 	});
 	
-	$('#end').timepicker({
-		hourText: 'Kraj smjene',
-		showMinutes: false
+	$('#end').datetimepicker({
+		autoclose: true,
+		format: 'hh',
+		startView: 1,
+		minView: 1,
+		language: $('#end').attr('lang')
 	});
 
 // shift report
