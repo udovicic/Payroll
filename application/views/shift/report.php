@@ -7,7 +7,7 @@
                         <tbody>
 <?php
     foreach ($report as $key => $shift):
-        if ($key != 'total'):
+        if (is_string($key) == false):
             $date = new DateTime($shift['date']);
 ?>
                             <tr class="data" id="<?php echo $shift['shift_id']; ?>">
