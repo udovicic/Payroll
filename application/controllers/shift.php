@@ -183,7 +183,6 @@ class Shift extends CI_Controller
                 $this->Shift_model->delete($id);
             }
         }
-        echo $this->db->last_query();
 
         $url = $_SERVER['HTTP_REFERER']; // Ugly
         $url = str_replace($this->config->item('base_url'), '', $url);
