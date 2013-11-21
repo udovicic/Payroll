@@ -1,3 +1,4 @@
+<?php if($ajax == false): ?>
             <div class="account-wall">
                 <form class="user-form" id="user-login" name="user-login" action="<?php echo base_url(); ?>user/login" method="post">
                     <div class="input-group first">
@@ -10,9 +11,14 @@
                     </div>
                     <a href="<?php echo base_url(); ?>user/reset" class="reset"><?php echo lang('lbl_reset_pwd'); ?></a>
                     <button id="signin" name="signin" class="btn btn-lg btn-primary btn-block" type="submit"><?php echo lang('btn_sign_in'); ?></button>
-<?php if (isset($notify)): ?>
-                    <div class="alert alert-danger text-center"><?php echo $notify; ?></div>
+                    <div id="result">
 <?php endif; ?>
+<?php if (isset($notify)): ?>
+                        <div class="alert alert-danger text-center"><?php echo $notify; ?></div>
+<?php endif; ?>
+<?php if ($ajax == false): ?>
+                    </div>
                 </form>
             </div>
             <a href="<?php echo base_url(); ?>user/register" class="text-center bottom-text"><?php echo lang('lbl_create_acc'); ?></a>
+<?php endif; ?>

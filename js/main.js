@@ -1,3 +1,4 @@
+function init() {
 	// set current date
 	var d=new Date();
 	var day = d.getDate();
@@ -34,7 +35,7 @@
 		minView: 1,
 		language: $('#start').attr('lang')
 	});
-	
+
 	$('#end').datetimepicker({
 		autoclose: true,
 		format: 'hh',
@@ -43,16 +44,16 @@
 		language: $('#end').attr('lang')
 	});
 
-// shift report
+	// shift report
 	$('td.date, td.time, td.total, th.total').click(function(event) {
 		$(this).parent().next('tr.details').fadeToggle();
 	});
-	
+
 	$('tr.details').click(function(event) {
 		$(this).fadeOut();
 	});
 
-// dialog setup
+	// dialog setup
 	$('td.edit').click(function() {
 		var date = $(this).siblings('td.date').html();
 		var time = $(this).siblings('td.time').html();
@@ -90,3 +91,30 @@
 			.find('span.total').html(total).end()
 			.modal('show');
 	});
+
+	// ajax
+	// period select
+	$('#menu-report').click(function(e) {
+		e.preventDefault();
+		var posting = $.get($(this).children('a').attr('href') + '/ajax');
+		posting.done(function(data) {
+			$('#ajax-body').html(data);
+			init(); // populate fields and reattach callbacks
+			$('#ajax-modal').modal('show');
+		})
+	});
+
+	// form validation info
+	$('#form-shift-add, #user-login, #user-reset, #user-register').submit(function(e) {
+		e.preventDefault();
+		$.post(
+			$(this).attr('action') + '/ajax',
+			$(this).serialize()
+		).done( function(data) {
+			if (data == '') window.location.reload(true);
+			$('#result').html(data);
+		});
+	});
+}
+
+init();

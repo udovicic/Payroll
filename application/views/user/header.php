@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>css/user.css">
 
         <script src="<?php echo base_url() ?>js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="<?php echo base_url() ?>js/vendor/jquery-1.10.1.min.js"></script>
     </head>
     <body>
         <div class="container">

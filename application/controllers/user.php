@@ -23,7 +23,7 @@ class User extends CI_Controller
     * Handles input from HTML form, checks records in database.
     * Requires 'username' and 'password' inside $_POST.
     */
-    function login()
+    function login($ajax = false)
     {
         // redirect if allready logged in
         if ($this->session->userdata('username') != false) {
@@ -69,15 +69,16 @@ class User extends CI_Controller
                 $this->session->set_userdata($user_info);
 
                 // redirect do default controller/action
-                redirect(site_url());
+                if ($ajax == false) redirect(site_url(), 'location');
             }
         }
 
         // render view
         $data['title'] = lang('title_sign_in');
-        $this->load->view('user/header', $data);
+        $data['ajax'] = $ajax;
+        if ($ajax == false) $this->load->view('user/header', $data);
         $this->load->view('user/login', $data);
-        $this->load->view('user/footer');
+        if ($ajax == false) $this->load->view('footer');
     }
 
     /**
@@ -97,7 +98,7 @@ class User extends CI_Controller
     * Register new user in database.
     * Requires 'username', 'password' and 'email' inside $_POST.
     */
-    function register()
+    function register($ajax = false)
     {
         // redirect if allready logged in
         if ($this->session->userdata('username') != false) {
@@ -169,9 +170,10 @@ class User extends CI_Controller
         }
 
         $data['title'] = lang('title_register');
-        $this->load->view('user/header', $data);
-        $this->load->view('user/register');
-        $this->load->view('user/footer');
+        $data['ajax'] = $ajax;
+        if ($ajax == false) $this->load->view('user/header', $data);
+        $this->load->view('user/register', $data);
+        if ($ajax == false) $this->load->view('footer');
     }
 
     /**
@@ -206,7 +208,7 @@ class User extends CI_Controller
     * Sends generated password to users email.
     * Requires 'email' inside $_POST.
     */
-    function reset()
+    function reset($ajax = false)
     {
         // redirect if allready logged in
         if ($this->session->userdata('username') != false) {
@@ -253,15 +255,18 @@ class User extends CI_Controller
                     $this->email->subject(lang('email_reset_subject'));
                     $this->email->message($msg);
                     $this->email->send();
+
+                    $data['notify'] = lang('notify_pwd_reset');
                 }
             }
         }
 
         // render view
         $data['title'] = lang('title_reset');
-        $this->load->view('user/header', $data);
+        $data['ajax'] = $ajax;
+        if ($ajax == false) $this->load->view('user/header', $data);
         $this->load->view('user/reset', $data);
-        $this->load->view('user/footer');
+        if ($ajax == false) $this->load->view('footer');
     }
 
     /**

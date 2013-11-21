@@ -23,6 +23,7 @@ $lang['err_unknown_email'] = "Unknown email address";
 $lang['err_unknown'] = "Something went wrong";
 
 $lang['notify_user_created'] = "User account has been created. Check your email for activation code";
+$lang['notify_pwd_reset'] = "Instructions were sent to your email address";
 
 $lang['email_activate_body'] = "Activate your account by visiting this link:\n\n%s";
 $lang['email_activate_subject'] = "User activation";

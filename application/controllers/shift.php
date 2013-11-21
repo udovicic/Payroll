@@ -26,7 +26,7 @@ class Shift extends CI_Controller
     * Requires 'start' and 'end' or 'bonus' and 'date', 'note' in $_POST
     * If 'shift_id' is set in $_POST it preforms db update
     */
-    function add()
+    function add($ajax = false)
     {
         if ($this->input->post() != false) {
 
@@ -104,10 +104,11 @@ class Shift extends CI_Controller
         }
 
         $data['title'] = 'Add shift';
+        $data['ajax'] = $ajax;
         $data['username'] = $this->session->userdata('username');
-        $this->load->view('header', $data);
+        if ($ajax == false) $this->load->view('header', $data);
         $this->load->view('shift/add', $data);
-        $this->load->view('footer');
+        if ($ajax == false) $this->load->view('footer');
     }
 
     /**
@@ -116,7 +117,6 @@ class Shift extends CI_Controller
     function report_period($ajax = false)
     {
         // generate report
-        $this->input->post('month');
         if ($this->input->post() != false) {
             $month = $this->input->post('month');
             redirect('/shift/report/' . $month);

@@ -23,6 +23,7 @@ $lang['err_unknown_email'] = "Nepoznata email adresa";
 $lang['err_unknown'] = "Krivo je more... :/";
 
 $lang['notify_user_created'] = "Korisnički račun je napravljen. Provjerite email za daljnje upute.";
+$lang['notify_pwd_reset'] = "Upute su poslane na vašu email adresu";
 
 $lang['email_activate_body'] = "Aktivirajte korisnički račun na sljedećoj adresi:\n\n%s";
 $lang['email_activate_subject'] = "Aktivacija računa";

@@ -4,14 +4,11 @@
     margin: 0 auto;
 }
 
-.profile {
-    max-width: 500px;
-    padding: 15px;
-    margin: 100px auto;
-}
-
-
 @media (max-width: 768px) {
+    body {
+        padding-top: 20px;
+    }
+    
     .profile {
         margin: 15px auto 0;
         padding: 0;
