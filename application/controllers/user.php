@@ -369,6 +369,62 @@ class User extends CI_Controller
     */
     function delete()
     {
-        // TODO: Write this function
+        // require user to be logged in
+        if ($this->session->userdata('username') == false) {
+            redirect('user/login');
+        }
+
+        $this->lang->load('shift', $this->session->userdata('language'));
+
+        // parse input
+        if ($this->input->post() != false) {
+            $user_info = array(
+                'password' => sha1($this->input->post('password')),
+                'user_id' => $this->input->post('id'),
+                'code' => $this->input->post('code'),
+            );
+
+            // validate form input
+            $config = array(
+               array(
+                    'field' => 'password',
+                    'label' => lang('ph_password'),
+                    'rules' => 'trim|min_length[4]'
+                ), array(
+                    'field' => 'id',
+                    'label' => 'ID',
+                    'rules' => 'required'
+                ), array(
+                    'field' => 'code',
+                    'label' => 'CODE',
+                    'rules' => 'required'
+                )
+            );
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules($config);
+
+            if ($this->form_validation->run() == false) {
+                $data['notify'] = validation_errors();
+            } else {
+                // delete account
+                if ($this->User_model->delete_account($user_info) == false) {
+                    $data['notify'] = lang('err_del_password');
+                } else {
+                    // user deleted, perform logout
+                    redirect(site_url('/user/logout'));
+                }
+            }
+            
+        }
+
+        // render view
+        $data['title'] = lang('title_delete');
+        $data['username'] = $this->session->userdata('username');
+        $data['id'] = $this->session->userdata('user_id');
+        $data['code'] = $this->session->userdata('code');
+
+        $this->load->view('header.php', $data);
+        $this->load->view('user/delete.php', $data);
+        $this->load->view('footer.php');
     }
 }

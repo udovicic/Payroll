@@ -113,7 +113,7 @@ class User_model extends CI_Model
     * Update profile with new info
     *
     * @param int $user_id User id
-    * @param array $user_info Info to be updated
+    * @param array $user_data Info to be updated
     * @return mixed User info on success, otherwise false
     */
     function update_profile($user_id, $user_data)
@@ -125,6 +125,36 @@ class User_model extends CI_Model
 
         if ($this->db->affected_rows() == 1) {
             return $this->check_credentials($user_id);
+        }
+
+        return false;
+    }
+
+    /**
+    * Delete user account and user data
+    *
+    * @param array $user_data Array containing hashed password, id and code
+    * @return bool True on success, otherwise false
+    */
+    function delete_account($user_data)
+    {
+        $id = $user_data['user_id'];
+
+        // verify user credentials
+        if ($this->check_credentials($user_data) == false) {
+            return false;
+        }
+
+        // delete user data
+        $this->db->where('user_id_fk', $id);
+        $this->db->delete('shifts');
+
+        // delete account info
+        $this->db->where('user_id', $id);
+        $this->db->delete('users');
+
+        if ($this->db->affected_rows() == 1) {
+            return true;
         }
 
         return false;

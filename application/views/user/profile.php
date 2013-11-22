@@ -46,6 +46,8 @@
                     </div>
                 </div>
 <?php if (isset($notify)): ?>
-                    <div class="alert alert-danger text-center"><?php echo $notify; ?></div>
+                <div class="alert alert-danger text-center"><?php echo $notify; ?></div>
 <?php endif; ?>
+            <a class="pull-right" href="<?php echo base_url(); ?>user/delete" class="text-center bottom-text"><?php echo lang('lbl_delete_acc'); ?></a>
+
             </form>
