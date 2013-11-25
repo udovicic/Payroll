@@ -137,12 +137,31 @@ class Shift_model extends CI_Model
     /**
     * Generate report
     *
-    * @param string $start Beginning date
-    * @param string $end Ending date
+    * @param string $start Starting date or month (optional)
+    * @param string $end Report end date (optional)
     * @return array report in form of array
     */
     function generate_report($start, $end, $user_id)
     {
+        // parse input
+        if ($start == false && $end == false) {
+            $start = new DateTime('first day of this month');
+            $end = new DateTime('first day of next month');
+            $end->modify('-1 day');
+        } else if ($start != false && $end == false) {
+            $end = new Datetime;
+            $start = new DateTime('1.' . $start . '.' . $end->format('Y'));
+            $end = clone $start;
+            $end->modify('+1 month -1 day');
+        } else {
+            $start = new DateTime($start);
+            $end = new DateTime($end);
+        }
+
+        // format date
+        $start = $start->format('Y-m-d');
+        $end = $end->format('Y-m-d');
+
         // get shift details
         $this->db->where("`date` BETWEEN '{$start}' AND '{$end}'");
         $this->db->where('user_id_fk', $user_id);

@@ -94,7 +94,7 @@ function init() {
 
 	// ajax
 	// period select
-	$('#menu-report').click(function(e) {
+	$('#menu-report, #menu-pdf').click(function(e) {
 		e.preventDefault();
 		var posting = $.get($(this).children('a').attr('href') + '/ajax');
 		posting.done(function(data) {
@@ -103,6 +103,14 @@ function init() {
 			$('#ajax-modal').modal('show');
 		})
 	});
+
+	// period select hack
+	$('#period-submit').click(function() {
+		var month = $('#month').val();
+		var action = $('#period-select').attr('action') + '/' + month;
+		$('#period-select').attr('action', action);
+		$('#ajax-modal').modal('hide');
+	})
 
 	// form validation info
 	$('#form-shift-add, #user-login, #user-reset, #user-register').submit(function(e) {

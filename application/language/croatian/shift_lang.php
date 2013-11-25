@@ -35,6 +35,9 @@ $lang['sunday_night'] = "Nedjeljni noćni";
 $lang['holiday'] = "Praznik";
 $lang['holiday_night'] = "Praznik noćni";
 $lang['bonus'] = "Bonus";
+$lang['date'] = "Datum";
+$lang['time'] = "Vrijeme";
+$lang['total'] = "Ukupno";
 
 $lang['lbl_details'] = "Sažetak";
 $lang['lbl_total'] = "Ukupno";
@@ -47,3 +50,5 @@ $lang['dlg_btn_delete'] = "Obriši";
 $lang['dlg_edit_title'] = "Uređivanje smjene";
 $lang['dlg_delete_title'] = "Brisanje smjene";
 $lang['dlg_delete_msg'] = "Obrisati smjenu na dan ";
+
+$lang['generated_by'] = "Izvješće je sastavljeno pomoću ";

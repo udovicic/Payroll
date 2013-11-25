@@ -113,8 +113,11 @@ class Shift extends CI_Controller
 
     /**
     * Select period for report
+    *
+    * @param string $target Which action should be called afterwards
+    * @param bool $ajax Render output without header and footer for ajax calls
     */
-    function report_period($ajax = false)
+    function report_period($target, $ajax = false)
     {
         // generate report
         if ($this->input->post() != false) {
@@ -125,9 +128,33 @@ class Shift extends CI_Controller
         // render view
         $data['title'] = lang('title_report_period');
         $data['username'] = $this->session->userdata('username');
+        $data['target'] = $target;
         if ($ajax == false) $this->load->view('header', $data);
-        $this->load->view('shift/period_select');
+        $this->load->view('shift/period_select', $data);
         if ($ajax == false) $this->load->view('footer');
+    }
+
+    /**
+    * PDF version of report()
+    *
+    * @param string $start Starting date or month (optional)
+    * @param string $end Report end date (optional)
+    */
+    function pdf($start = false, $end = false)
+    {
+        // create report
+        $this->load->model('Shift_model');
+        $report = $this->Shift_model->generate_report(
+            $start, $end,$this->session->userdata('user_id'));
+
+        // render view
+        $data['title'] = lang('title_report');;
+        $data['username'] = $this->session->userdata('username');
+        $data['report'] = $report;
+        
+        $html = $this->load->view('shift/pdf', $data, true);
+        $this->load->helper('dompdf');
+        pdf_create($html, '', true);
     }
 
     /**
@@ -138,26 +165,10 @@ class Shift extends CI_Controller
     */
     function report($start = false, $end = false)
     {
-        // parse input
-        if ($start == false && $end == false) {
-            $start = new DateTime('first day of this month');
-            $end = new DateTime('first day of next month');
-            $end->modify('-1 day');
-        } else if ($start != false && $end == false) {
-            $end = new Datetime;
-            $start = new DateTime('1.' . $start . '.' . $end->format('Y'));
-            $end = clone $start;
-            $end->modify('+1 month -1 day');
-        } else {
-            $start = new DateTime($start);
-            $end = new DateTime($end);
-        }
-
         // create report
         $this->load->model('Shift_model');
         $report = $this->Shift_model->generate_report(
-            $start->format('Y-m-d'), $end->format('Y-m-d'),
-            $this->session->userdata('user_id'));
+            $start, $end,$this->session->userdata('user_id'));
 
         // render view
         $data['title'] = lang('title_report');;
