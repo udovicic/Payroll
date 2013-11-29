@@ -10,8 +10,28 @@ $lang['shortcode'] = "hr";
 $lang['add'] = "Dodaj";
 $lang['report'] = "Pregled";
 $lang['pdf'] = "Print";
+$lang['stats'] = "Statistika";
 $lang['profile'] = "Uredi profil";
 $lang['sign_out'] = "Odjava";
+
+$lang['stats_totals_t'] = "Plaća";
+$lang['stats_totals_series'] = "Plaća";
+$lang['stats_hours_t'] = "Raspodjela sati";
+$lang['stats_avg_t'] = "Prosječna satnica";
+$lang['stats_avg_series'] = "Prosječna satnica";
+
+$lang['month_01'] = "Sij";
+$lang['month_02'] = "Vlj";
+$lang['month_03'] = "Ožu";
+$lang['month_04'] = "Tra";
+$lang['month_05'] = "Svi";
+$lang['month_06'] = "Lip";
+$lang['month_07'] = "Srp";
+$lang['month_08'] = "Kol";
+$lang['month_09'] = "Ruj";
+$lang['month_10'] = "Lis";
+$lang['month_11'] = "Stu";
+$lang['month_12'] = "Pro";
 
 $lang['ph_date'] = "Datum";
 $lang['ph_month'] = "Mjesec";

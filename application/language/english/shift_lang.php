@@ -10,8 +10,28 @@ $lang['shortcode'] = "en";
 $lang['add'] = "Add shift";
 $lang['report'] = "View report";
 $lang['pdf'] = "Printable report";
+$lang['stats'] = "Statistics";
 $lang['profile'] = "Edit user profile";
 $lang['sign_out'] = "Sign out";
+
+$lang['stats_totals_t'] = "Salary";
+$lang['stats_totals_series'] = "Salary";
+$lang['stats_hours_t'] = "Hour distribution";
+$lang['stats_avg_t'] = "Average hourly earning";
+$lang['stats_avg_series'] = "Average hourly earning";
+
+$lang['month_01'] = "Jan";
+$lang['month_02'] = "Feb";
+$lang['month_03'] = "Mar";
+$lang['month_04'] = "Apr";
+$lang['month_05'] = "May";
+$lang['month_06'] = "Jun";
+$lang['month_07'] = "Jul";
+$lang['month_08'] = "Aug";
+$lang['month_09'] = "Sep";
+$lang['month_10'] = "Oct";
+$lang['month_11'] = "Nov";
+$lang['month_12'] = "Dec";
 
 $lang['ph_date'] = "Date";
 $lang['ph_month'] = "Month";

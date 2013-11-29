@@ -199,4 +199,25 @@ class Shift extends CI_Controller
         $url = str_replace($this->config->item('base_url'), '', $url);
         redirect($url);
     }
+
+    /**
+    * Display shift and user statistics
+    */
+    function stats()
+    {
+        $this->load->model('Shift_model');
+
+        // grab data
+        $id = $this->session->userdata('user_id');
+        $data['summary_t'] = $this->Shift_model->summary_total($id);
+        $data['summary_h'] = $this->Shift_model->summary_hours($id);
+        $data['summary_a'] = $this->Shift_model->summary_avg_ph($id);
+
+        // render view
+        $data['title'] = lang('title_report');;
+        $data['username'] = $this->session->userdata('username');
+        $this->load->view('header', $data);
+        $this->load->view('shift/stats', $data);
+        $this->load->view('footer');
+    }
 }

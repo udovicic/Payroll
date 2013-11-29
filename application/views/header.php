@@ -17,6 +17,8 @@
 
         <script src="<?php echo base_url() ?>js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="<?php echo base_url() ?>js/vendor/jquery-1.10.1.min.js"></script>
+        <script src="<?php echo base_url() ?>js/vendor/globalize.min.js"></script>
+        <script src="<?php echo base_url() ?>js/vendor/dx.chartjs.js"></script>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,6 +36,7 @@
                         <li id="menu-add"><a href="<?php echo site_url('/shift/add'); ?>"><span class="glyphicon glyphicon-plus"></span> <?php echo lang('add'); ?></a></li>
                         <li id="menu-report"><a href="<?php echo site_url('/shift/report_period/report'); ?>"><span class="glyphicon glyphicon-th-list"></span> <?php echo lang('report'); ?></a></li>
                         <li id="menu-pdf"><a href="<?php echo site_url('/shift/report_period/pdf'); ?>"><span class="glyphicon glyphicon-file"></span> <?php echo lang('pdf'); ?></a></li>
+                        <li id="menu-dashboard"><a href="<?php echo site_url('/shift/stats'); ?>"><span class="glyphicon glyphicon-stats"></span> <?php echo lang('stats'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">

@@ -35,7 +35,7 @@ class User extends CI_Controller
 
             $user_info = array(
                 'username' => $this->input->post('username'),
-                'password' => sha1($this->input->post('password'))
+                'password' => $this->input->post('password')
             );
 
             // perform form validation
@@ -110,7 +110,7 @@ class User extends CI_Controller
             $user_info = array(
                 'username' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
-                'password' => sha1($this->input->post('password'))
+                'password' => $this->input->post('password')
             );
 
             // validate form input
@@ -326,8 +326,6 @@ class User extends CI_Controller
                 // remove password from array if not set 
                 if ($user_info['password'] == false) {
                     unset($user_info['password']);
-                } else {
-                    $user_info['password'] = sha1($user_info['password']);
                 }
 
                 $user_id = $this->session->userdata('user_id');
@@ -379,10 +377,12 @@ class User extends CI_Controller
         // parse input
         if ($this->input->post() != false) {
             $user_info = array(
-                'password' => sha1($this->input->post('password')),
+                'password' => $this->input->post('password'),
+                'username' => $this->session->userdata('username'),
                 'user_id' => $this->input->post('id'),
                 'code' => $this->input->post('code'),
             );
+
 
             // validate form input
             $config = array(

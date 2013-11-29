@@ -80,7 +80,7 @@ class Shift_model extends CI_Model
                 // night hour
                 if (array_key_exists($shift->format('d.m.'), $holidays)) {
                     $shift_data['holiday_night']++;
-                } else if ($shift->format('N') == '7') {
+                } else if ($shift->format('m') == '7') {
                     $shift_data['sunday_night']++;
                 } else {
                     $shift_data['night']++;
@@ -89,7 +89,7 @@ class Shift_model extends CI_Model
                 // day hour
                 if (array_key_exists($shift->format('d.m.'), $holidays)) {
                     $shift_data['holiday']++;
-                } else if ($shift->format('N') == '7') {
+                } else if ($shift->format('m') == '7') {
                     $shift_data['sunday']++;
                 } else {
                     $shift_data['day']++;
@@ -200,5 +200,127 @@ class Shift_model extends CI_Model
         }
 
         return false;
+    }
+
+    /**
+    * Generate summary of totals for past year
+    *
+    * @param int $user_id User id in database
+    * @return array Month => Total pairs
+    */
+    function summary_total($user_id)
+    {
+        $d_start = new Datetime('first day of this month');
+        $d_end = clone $d_start;
+        $d_end->modify('+1 month -1 day');
+
+        $summary = array();
+
+        for ($i=0; $i < 12; $i++) { 
+            // format date
+            $start = $d_start->format('Y-m-d');
+            $end = $d_end->format('Y-m-d');
+
+            // get from db
+            $this->db->select_sum('total');
+            $this->db->where('user_id_fk', $user_id);
+            $this->db->where("`date` BETWEEN '{$start}' AND '{$end}'");
+            $query = $this->db->get('shifts');
+            $total = $query->row_array();
+
+            // store in array
+            $summary['month_' . $d_start->format('m')] = $total['total'];
+
+            // correct date
+            $d_start->modify('-1 month');
+            $d_end = clone $d_start;
+            $d_end->modify('+1 month -1 day');
+        }
+
+        return array_reverse($summary);
+    }
+
+    /**
+    * Generate summary of averages per hour on monthly basis
+    *
+    * @param int $user_id User id in database
+    * @return array Month => (Hour => sum) pairs
+    */
+    function summary_hours($user_id)
+    {
+        $d_start = new Datetime('first day of this month');
+        $d_end = clone $d_start;
+        $d_end->modify('+1 month -1 day');
+
+        $summary = array();
+
+        for ($i=0; $i < 12; $i++) { 
+            // format date
+            $start = $d_start->format('Y-m-d');
+            $end = $d_end->format('Y-m-d');
+
+            // get from db
+            $this->db->select_sum('day')->select_sum('night')
+                ->select_sum('sunday')->select_sum('sunday_night')
+                ->select_sum('holiday')->select_sum('holiday_night');
+            $this->db->where('user_id_fk', $user_id);
+            $this->db->where("`date` BETWEEN '{$start}' AND '{$end}'");
+            $query = $this->db->get('shifts');
+            $total = $query->row_array();
+
+            // store in array
+            $summary['month_' . $d_start->format('m')] = $total;
+
+            // correct date
+            $d_start->modify('-1 month');
+            $d_end = clone $d_start;
+            $d_end->modify('+1 month -1 day');
+        }
+
+        return array_reverse($summary);
+    }
+
+    /**
+    * Generate summary of averages per hour on monthly basis
+    *
+    * @param int $user_id User id in database
+    * @param array $sum_total Array returned by summary_total
+    * @param array $sum_hour Array returned by summary_hours
+    * @return array Month => avg pairs
+    */
+    function summary_avg_ph($user_id, $sum_total='', $sum_hour='')
+    {
+        $totals = array();
+        $hours = array();
+        $summary = array();
+
+        // get totals
+        if ($sum_total == '') {
+            $totals = $this->summary_total($user_id);
+        } else {
+            $totals = $sum_total;
+        }
+        if ($sum_hour == '') {
+            $hours = $this->summary_hours($user_id);
+        } else {
+            $hours = $sum_hour;
+        }
+
+        $hour_i = array('day', 'night', 'sunday', 'sunday_night', 'holiday', 'holiday_night');
+
+
+        // generate sum
+        foreach ($totals as $month => $total) {
+            $working_h = array_sum($hours[$month]);
+            
+            if ($working_h > 0) {
+                $avg = floatval($total) / floatval($working_h);
+            } else {
+                $avg = 0;
+            }
+            $summary[$month] = number_format($avg, 2);
+        }
+
+        return $summary;
     }
 }

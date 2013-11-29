@@ -13,8 +13,14 @@ class User_model extends CI_Model
 	* @return mixed Array containing user data on success, otherwise false.
 	*/
     function check_credentials($user_data)
-    {
+    {   
         $user_data['active'] = 1;
+
+        if (isset($user_data['password']) == true) {
+            $user_data['password'] = $this->secure_password(
+                $user_data['password'],
+                $user_data['username']);
+        }
         $query = $this->db->get_where('users', $user_data);
         
         if ($query->num_rows() == 1) {
@@ -37,6 +43,9 @@ class User_model extends CI_Model
     	$user_data['active'] = 0;
     	$user_data['code'] = random_string('alnum', 10);
         $user_data['language'] = $this->config->item('language');
+        $user_data['password'] = $this->secure_password(
+            $user_data['password'],
+            $user_data['username']);
 
         // grab id of first rate from database
         $this->db->order_by('rate_id', 'asc');
@@ -82,8 +91,12 @@ class User_model extends CI_Model
     {
         $this->load->helper('string');
         $pwd = random_string('alnum', 10);
+
+        // fetch username from db
+        $user_selected = $this->check_credentials($user_data);
+
         $info = array(
-            'password' => sha1($pwd)
+            'password' => $this->secure_password($pwd, $user_selected['username'])
         );
 
         $this->db->where($user_data);
@@ -118,6 +131,12 @@ class User_model extends CI_Model
     */
     function update_profile($user_id, $user_data)
     {
+        if (isset($user_data['password']) == true) {
+            $user_data['password'] = $this->secure_password(
+                $user_data['password'],
+                $user_data['username']);
+        }
+
         $user_id = array('user_id' => $user_id);
 
         $this->db->where($user_id);
@@ -158,5 +177,19 @@ class User_model extends CI_Model
         }
 
         return false;
+    }
+
+    /**
+    * Salt password
+    *
+    * @param string $pwd Users password
+    * @param string $acc Users email
+    * @return string Secured password
+    */
+    function secure_password($pwd, $acc)
+    {
+        $pwd = sha1($pwd) . $acc;
+
+        return sha1($pwd);
     }
 }
