@@ -80,7 +80,7 @@ class Shift_model extends CI_Model
                 // night hour
                 if (array_key_exists($shift->format('d.m.'), $holidays)) {
                     $shift_data['holiday_night']++;
-                } else if ($shift->format('m') == '7') {
+                } else if ($shift->format('N') == '7') {
                     $shift_data['sunday_night']++;
                 } else {
                     $shift_data['night']++;
@@ -89,7 +89,7 @@ class Shift_model extends CI_Model
                 // day hour
                 if (array_key_exists($shift->format('d.m.'), $holidays)) {
                     $shift_data['holiday']++;
-                } else if ($shift->format('m') == '7') {
+                } else if ($shift->format('N') == '7') {
                     $shift_data['sunday']++;
                 } else {
                     $shift_data['day']++;
