@@ -74,6 +74,7 @@ class User extends CI_Controller
         }
 
         // render view
+        $data['canonical'] = 'user/login';
         $data['title'] = lang('title_sign_in');
         $data['ajax'] = $ajax;
         if ($ajax == false) $this->load->view('user/header', $data);
@@ -140,7 +141,7 @@ class User extends CI_Controller
                     $data['notify'] = lang('notify_user_created');
 
                     // send email notification
-                    $msg = sprintf(lang('email_activate_body'), 
+                    $msg = sprintf(lang('email_activate_body'),
                             site_url('/user/activate/'
                                 . $code . '/' . $user_info['username']));
 
@@ -169,6 +170,7 @@ class User extends CI_Controller
             }
         }
 
+        $data['canonical'] = 'user/register';
         $data['title'] = lang('title_register');
         $data['ajax'] = $ajax;
         if ($ajax == false) $this->load->view('user/header', $data);
@@ -214,7 +216,7 @@ class User extends CI_Controller
         if ($this->session->userdata('username') != false) {
             redirect(site_url());
         }
-        
+
         if ($this->input->post() != false) {
 
             $user_info = array(
@@ -248,7 +250,7 @@ class User extends CI_Controller
                             site_url('user/login'));
 
                     $this->load->library('email');
-                    $this->load->config('email');  
+                    $this->load->config('email');
 
                     $this->email->from($this->config->item('admin_email'));
                     $this->email->to($user_info['email']);
@@ -262,6 +264,7 @@ class User extends CI_Controller
         }
 
         // render view
+        $data['canonical'] = 'user/reset';
         $data['title'] = lang('title_reset');
         $data['ajax'] = $ajax;
         if ($ajax == false) $this->load->view('user/header', $data);
@@ -323,7 +326,7 @@ class User extends CI_Controller
             if ($this->form_validation->run() == false) {
                 $data['notify'] = validation_errors();
             } else {
-                // remove password from array if not set 
+                // remove password from array if not set
                 if ($user_info['password'] == false) {
                     unset($user_info['password']);
                 }
@@ -334,7 +337,7 @@ class User extends CI_Controller
                 if ($user_info != false) {
                     // reload session data with new info
                     $this->session->set_userdata($user_info);
-                    
+
                     // refresh to reload language files
                     redirect('/user/profile');
                 } else {
@@ -351,6 +354,7 @@ class User extends CI_Controller
         }
 
         // render view
+        $data['canonical'] = 'user/profile';
         $data['title'] = lang('title_profile');
         $data['username'] = $this->session->userdata('username');
         $data['email'] = $this->session->userdata('email');
@@ -414,10 +418,11 @@ class User extends CI_Controller
                     redirect(site_url('/user/logout'));
                 }
             }
-            
+
         }
 
         // render view
+        $data['canonical'] = 'user/delete';
         $data['title'] = lang('title_delete');
         $data['username'] = $this->session->userdata('username');
         $data['id'] = $this->session->userdata('user_id');

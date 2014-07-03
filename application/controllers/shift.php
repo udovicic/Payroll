@@ -103,6 +103,7 @@ class Shift extends CI_Controller
 
         }
 
+        $data['canonical'] = 'shift/add';
         $data['title'] = 'Add shift';
         $data['ajax'] = $ajax;
         $data['username'] = $this->session->userdata('username');
@@ -126,6 +127,7 @@ class Shift extends CI_Controller
         }
 
         // render view
+        $data['canonical'] = 'shift/report';
         $data['title'] = lang('title_report_period');
         $data['username'] = $this->session->userdata('username');
         $data['target'] = $target;
@@ -151,7 +153,7 @@ class Shift extends CI_Controller
         $data['title'] = lang('title_report');;
         $data['username'] = $this->session->userdata('username');
         $data['report'] = $report;
-        
+
         $html = $this->load->view('shift/pdf', $data, true);
         $this->load->helper('dompdf');
         pdf_create($html, '', true);
@@ -171,6 +173,7 @@ class Shift extends CI_Controller
             $start, $end,$this->session->userdata('user_id'));
 
         // render view
+        $data['canonical'] = 'shift/report';
         $data['title'] = lang('title_report');;
         $data['username'] = $this->session->userdata('username');
         $data['report'] = $report;
@@ -214,6 +217,7 @@ class Shift extends CI_Controller
         $data['summary_a'] = $this->Shift_model->summary_avg_ph($id);
 
         // render view
+        $data['canonical'] = 'shift/stats';
         $data['title'] = lang('title_report');;
         $data['username'] = $this->session->userdata('username');
         $this->load->view('header', $data);
