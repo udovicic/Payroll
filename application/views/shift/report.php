@@ -165,3 +165,12 @@
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
+<script>
+    dataLayer.push({
+        'eventCategory' : 'pageview',
+        'eventAction'   : 'pageview',
+        'eventLabel'    : 'shift-report',
+        'event'         : 'UAevent',
+        'eventValue'    : 1
+    });
+</script>

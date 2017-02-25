@@ -21,4 +21,13 @@
                 </form>
             </div>
             <a href="<?php echo base_url(); ?>user/register" class="text-center bottom-text"><?php echo lang('lbl_create_acc'); ?></a>
+<script>
+    dataLayer.push({
+        'eventCategory' : 'pageview',
+        'eventAction'   : 'pageview',
+        'eventLabel'    : 'user-login',
+        'event'         : 'UAevent',
+        'eventValue'    : 1
+    });
+</script>
 <?php endif; ?>

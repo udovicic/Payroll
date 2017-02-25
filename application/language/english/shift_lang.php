@@ -13,6 +13,7 @@ $lang['pdf'] = "Printable report";
 $lang['stats'] = "Statistics";
 $lang['profile'] = "Edit user profile";
 $lang['sign_out'] = "Sign out";
+$lang['feedback'] = "Feedback";
 
 $lang['stats_totals_t'] = "Salary";
 $lang['stats_totals_series'] = "Salary";

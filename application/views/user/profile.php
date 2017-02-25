@@ -51,3 +51,12 @@
             <a class="pull-right" href="<?php echo base_url(); ?>user/delete" class="text-center bottom-text"><?php echo lang('lbl_delete_acc'); ?></a>
 
             </form>
+<script>
+    dataLayer.push({
+        'eventCategory' : 'pageview',
+        'eventAction'   : 'pageview',
+        'eventLabel'    : 'user-profile',
+        'event'         : 'UAevent',
+        'eventValue'    : 1
+    });
+</script>
