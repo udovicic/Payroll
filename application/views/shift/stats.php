@@ -98,3 +98,12 @@
                     }
                 });
             </script>
+<script>
+    dataLayer.push({
+        'eventCategory' : 'pageview',
+        'eventAction'   : 'pageview',
+        'eventLabel'    : 'shift-stats',
+        'event'         : 'UAevent',
+        'eventValue'    : 1
+    });
+</script>

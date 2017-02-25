@@ -5,7 +5,7 @@ function init() {
 	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	$('#date').val(day + '.' + month + '.' + year);
-	$('#month').val(month);
+    $('#month').val(month + '.' + year);
 
 
 	// datepicker setup
@@ -15,20 +15,22 @@ function init() {
 		todayHighlight: true,
 		minView: 2,
 		weekStart: 1,
-		language: $('#date').attr('lang')
+		language: $('#date').attr('lang'),
 	});
-
+	
 	// month picker setup
 	$('#month').datetimepicker({
 		autoclose: true,
-		format: 'mm',
+		format: 'mm.yyyy',
+        todayHighlight: true,
+        minView: 3,
 		startView: 3,
-		minView: 3,
-		language: $('#month').attr('lang')
+        weekStart: 1,
 	});
 
 	// timepicker setup
 	$('#start').datetimepicker({
+        defaultDate: d,
 		autoclose: true,
 		format: 'hh',
 		startView: 1,
@@ -37,6 +39,7 @@ function init() {
 	});
 
 	$('#end').datetimepicker({
+        defaultDate: d,
 		autoclose: true,
 		format: 'hh',
 		startView: 1,

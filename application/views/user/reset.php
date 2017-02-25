@@ -17,3 +17,12 @@
             </div>
             <a href="<?php echo base_url(); ?>user/login" class="text-center bottom-text"><?php echo lang('lbl_sign_in'); ?></a>
 <?php endif; ?>
+<script>
+    dataLayer.push({
+        'eventCategory' : 'pageview',
+        'eventAction'   : 'pageview',
+        'eventLabel'    : 'user-reset',
+        'event'         : 'UAevent',
+        'eventValue'    : 1
+    });
+</script>

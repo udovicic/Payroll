@@ -75,3 +75,12 @@
 <?php if ($ajax == false): ?>
             </form>
 <?php endif; ?>
+<script>
+dataLayer.push({
+    'eventCategory' : 'pageview',
+    'eventAction'   : 'pageview',
+    'eventLabel'    : 'shift-add',
+    'event'         : 'UAevent',
+    'eventValue'    : 1
+});
+</script>
