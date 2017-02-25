@@ -54,4 +54,4 @@ $lang['lang_hr'] = "Hrvatski";
 $lang['lang_en'] = "Engleski";
 
 $lang['feedback_note_start'] = "Napomena: ";
-$lang['feedback_note_body'] = "Primam komentare, prijave bugova, zahtjeve za nove funkcionalnosti i sl. No zbog ograničenog slobodnog vremena ne znam kada ću vam moći odgovoriti.";
+$lang['feedback_note_body'] = "Primam komentare, prijave bugova, zahtjeve za nove funkcionalnosti i sl. No zbog ograničenog slobodnog vremena ne znam kada ću vam moći odgovoriti. Ako znaš PHP i želiš sam izmjeniti nešto, samo mi javi.";

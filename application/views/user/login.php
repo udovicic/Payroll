@@ -21,7 +21,6 @@
                 </form>
             </div>
             <a href="<?php echo base_url(); ?>user/register" class="text-center bottom-text"><?php echo lang('lbl_create_acc'); ?></a>
-<?php endif; ?>
 <script>
     dataLayer.push({
         'eventCategory' : 'pageview',
@@ -31,3 +30,4 @@
         'eventValue'    : 1
     });
 </script>
+<?php endif; ?>

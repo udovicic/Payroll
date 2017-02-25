@@ -54,5 +54,5 @@ $lang['lang_hr'] = "Croatian";
 $lang['lang_en'] = "English";
 
 $lang['feedback_note_start'] = "Note: ";
-$lang['feedback_note_body'] = "I accept comments, bug reports, new feature requests, etc. However due to limited free time I am not sure when I will be able to respond.";
+$lang['feedback_note_body'] = "I accept comments, bug reports, new feature requests, etc. However due to limited free time I am not sure when I will be able to respond. If you know PHP and would like to develop something yourself, just le me know.";
 

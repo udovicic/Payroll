@@ -1,6 +1,5 @@
 <?php if(isset($success)): ?>
     <div class="alert alert-success text-center"><?php echo $success; ?></div>
-    <a class="pull-right" href="<?php echo base_url(); ?>" class="text-center bottom-text"><?php echo lang('lbl_return'); ?></a>
 <?php else: ?>
 <form action="<?php echo base_url(); ?>user/feedback" role="form" class="form-horizontal feedback" method="post">
     <div class="form-group row">
@@ -43,3 +42,6 @@
         'eventValue'    : 1
     });
 </script>
+<?php if(isset($success)): ?>
+<a class="pull-right" href="<?php echo base_url(); ?>" class="text-center bottom-text"><?php echo lang('lbl_return'); ?></a>
+<?php endif ?>
