@@ -432,4 +432,73 @@ class User extends CI_Controller
         $this->load->view('user/delete.php', $data);
         $this->load->view('footer.php');
     }
+
+    /**
+     * Option to submit feedback
+     *
+     * Edit user data
+     */
+    function feedback()
+    {
+        // require user to be logged in
+        if ($this->session->userdata('username') == false) {
+            redirect('user/login');
+        }
+
+        $this->lang->load('shift', $this->session->userdata('language'));
+
+        // check user input
+        if ($this->input->post() != false) {
+            $comment = array(
+                'email' => $this->input->post('email'),
+                'comment' => $this->input->post('comment')
+            );
+
+            // perform form validation
+            $config = array(
+                array(
+                    'field' => 'email',
+                    'label' => lang('ph_email'),
+                    'rules' => 'trim|required|max_length[30]|min_length[3]'
+                ), array(
+                    'field' => 'comment',
+                    'label' => lang('ph_comment'),
+                    'rules' => 'trim|required|min_length[10]'
+                )
+            );
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules($config);
+
+            if ($this->form_validation->run() == false) {
+                $data['notify'] = validation_errors();
+            }
+
+            // try to send email
+            if (isset($data['notify']) == false) {
+                $to = $this->config->item('email');
+                $subject = 'Feedback [satnica.udovicic.org]';
+                $message = "Reply to: " . $comment['email'] . PHP_EOL .
+                    'Message: ' . PHP_EOL . $comment['comment'] . PHP_EOL;
+
+                if (mail($to, $subject, $message)) {
+                    $data['success'] = lang('user_submit_feedback');
+                } else {
+                    $data['notify'] = lang('user_submit_feedback_error');
+                }
+
+            }
+        }
+
+        // render view
+        $data['canonical'] = 'user/feedback';
+        $data['title'] = lang('title_feedback');
+        $data['username'] = $this->session->userdata('username');
+        $data['email'] = $this->session->userdata('email');
+        $data['id'] = $this->session->userdata('user_id');
+        $data['code'] = $this->session->userdata('code');
+
+        $this->load->view('header', $data);
+        $this->load->view('user/feedback', $data);
+        $this->load->view('footer');
+    }
 }

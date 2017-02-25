@@ -40,3 +40,7 @@ a {
 	background: #eeeeee;
 	max-width:600px;
 }
+
+.text-justify {
+	text-align: justify;
+}

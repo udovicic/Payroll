@@ -17,7 +17,7 @@ function init() {
 		weekStart: 1,
 		language: $('#date').attr('lang'),
 	});
-	
+
 	// month picker setup
 	$('#month').datetimepicker({
 		autoclose: true,

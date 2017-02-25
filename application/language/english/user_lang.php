@@ -8,17 +8,20 @@ $lang['ph_pwd'] = "Password";
 $lang['ph_email'] = "Email";
 $lang['ph_language'] = "Language";
 $lang['ph_rate'] = "Rate";
+$lang['ph_comment'] = "Comment";
 
 $lang['lbl_reset_pwd'] = "Reset password?";
 $lang['lbl_create_acc'] = "Create an account";
 $lang['lbl_sign_in'] = "Sign in";
 $lang['lbl_delete_acc'] = "Delete user account";
+$lang['lbl_return'] = "Back to homepage";
 
 $lang['btn_sign_in'] = "Sign in";
 $lang['btn_profile_confirm'] = "Update";
 $lang['btn_create_acc'] = "Create account";
 $lang['btn_reset_pwd'] = "Reset password";
 $lang['btn_delete_acc'] = "Delete";
+$lang['btn_submit'] = "Submit";
 
 $lang['err_user_pwd'] = "Wrong username or password";
 $lang['err_unknown_email'] = "Unknown email address";
@@ -40,9 +43,16 @@ $lang['title_register'] = "Register new account";
 $lang['title_reset'] = "Password reset";
 $lang['title_profile'] = "Edit user profile";
 $lang['title_delete'] = "Delete account";
+$lang['title_feedback'] = "Leave feedback";
+$lang['user_submit_feedback_error'] = "Unable to send email.";
 
 $lang['user_delete_msg'] = "Deleting your account will erase existing data. This action cannot be undone.";
 $lang['user_delete_confirm'] = "If you want to delete your account, enter your password.";
+$lang['user_submit_feedback'] = "Thanks forsubmitting feedback.";
 
 $lang['lang_hr'] = "Croatian";
 $lang['lang_en'] = "English";
+
+$lang['feedback_note_start'] = "Note: ";
+$lang['feedback_note_body'] = "I accept comments, bug reports, new feature requests, etc. However due to limited free time I am not sure when I will be able to respond.";
+

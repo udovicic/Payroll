@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/datetimepicker.min.css">
-        <link rel="stylesheet" href="<?php echo base_url() ?>css/main.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>css/main.v1.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/shift.css">
 
         <script src="<?php echo base_url() ?>js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -55,6 +55,7 @@
                         <li id="menu-report"><a href="<?php echo site_url('/shift/report_period/report'); ?>"><span class="glyphicon glyphicon-th-list"></span> <?php echo lang('report'); ?></a></li>
                         <li id="menu-pdf"><a href="<?php echo site_url('/shift/report_period/pdf'); ?>"><span class="glyphicon glyphicon-file"></span> <?php echo lang('pdf'); ?></a></li>
                         <li id="menu-dashboard"><a href="<?php echo site_url('/shift/stats'); ?>"><span class="glyphicon glyphicon-stats"></span> <?php echo lang('stats'); ?></a></li>
+                        <li id="menu-feedback"><a href="<?php echo site_url('/user/feedback'); ?>"><span class="glyphicon glyphicon-envelope"></span> <?php echo lang('feedback'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
