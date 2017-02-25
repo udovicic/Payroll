@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <?php if (isset($canonical)): ?><link rel="canonical" href="<?php echo base_url() . $canonical ?>" /><?php endif ?>
+        <?php if (isset($canonical)): ?><link rel="canonical" href="<?php echo base_url() . $canonical?>" /><?php endif ?>
 
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>css/bootstrap-theme.min.css">
